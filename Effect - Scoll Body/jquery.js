@@ -1,6 +1,12 @@
 $( document ).ready(function() {
-    $( "span" ).click(function() {
-        alert( "Handler for .click() called." );
+
+    function scrollToElement(){
+      $('html').animate({scrollTop: 1900}, 1000);
+    };
+
+    $('ul.menu li.item').click(function() {
+      scrollToElement();
+      console.log('I am here.')
       });
     
 });
