@@ -10,7 +10,7 @@ div.backToTop {
     bottom: 0%;
     right: 50%;
     transform: translate(50%, -20%);
-    color: wheat;
+    color: #0a032d;
     background: lightblue;
     padding: 0px 10px;
     opacity: 0.7;
@@ -40,6 +40,7 @@ div.content div.art {
 
 div.block h2 {
     text-align: center;
+    padding-top: 50px;
 }
 
 div.content div.art img {
@@ -88,4 +89,10 @@ body {
     width: 700px;
     margin: auto;
     font-family: tahoma;
+}
+
+ul.menu li.item.selected {
+    background: black;
+    color: wheat;
+    border-radius: 10px;
 }
