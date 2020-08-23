@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.right-block {
+    width: 500px;
+    float: right;
+    margin-top: 25px;
+}
+
+.block-two {
+    height: 300px;
+    margin-top: 25px;
+    border: solid 2px;
+}
+
+.block-one {
+    height: 150px;
+    border: solid 2px;
+}
+
+.left-block {
+    width: 425px;
+    margin: 25px 25px 0px 0px;
+    border: solid 2px;
+    height: 475px;
+    float: left;
+}
+
+.nav-menu {
+    height: 150px;
+    border: solid 2px;
+}
+
+body {
+    width: 1000px;
+    height: 700px;
+    border: solid 2px;
+    padding: 23px;
+    margin: 0 auto;
+}

@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.close-pop-up {
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    right: 0;
+}
+
+.pop-up-name, .pop-up-person-infor, .pop-up-score {
+    margin: 0px 0px 20px 0px;
+    position: relative;
+}
+
+.pop-up-infor {
+    width: 220px;
+    display: inline-block;
+    border: 1px solid;
+    padding: 10px 20px;
+    position: absolute;
+    z-index: 3;
+    text-align: left;
+    background-color: antiquewhite;
+}
+
+.show-detail-stu[action="active"] .pop-up-infor {
+    opacity: 1;
+    z-index: 3;
+    transform: scale(1);
+}
+
+.show-detail-stu {
+    margin: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.more-info {
+    text-align: left;
+    padding: 20px;
+    border-bottom: solid 1px;
+}
+
+.name-stu {
+    display: flex;
+    padding: 10px;
+    border-bottom: solid 1px;
+}
+
+.avatar-stu {
+    width: 100px;
+    height: 100px;
+    border: solid 1px;
+    margin: 0 auto;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.infor-stu {
+    text-align: center;
+    width: 200px;
+    border: 1px solid;
+    border-radius: 10px;
+    display: inline-block;
+    margin: 13px;
+    background-color: whitesmoke
+}
+
+body {
+    margin: 0 auto;
+    font-size:  13px;
+}
+.show-stu{
+    width: 1200px;
+    height: auto;
+    border: solid 1px;
+    font-family: tahoma;
+    padding: 23px;
+    display: inline-block;
+    overflow: hidden;
+}
