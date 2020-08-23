@@ -1,0 +1,25 @@
+.cover {
+    width: 400px;
+    margin: 0 auto
+}
+
+div.step h3 {
+    background-color: #ff7675;
+    margin: 0;
+    padding: 10px 5px;
+    color: white
+}
+
+.selected {
+    background-color: #d63031!important;
+    color: black!important;
+}
+
+div.content {
+    background-color: #dfe6e9;
+    padding: 10px;
+}
+div.cover .step h3:hover{
+    cursor: pointer;
+    background-color: #a29bfe;
+}
