@@ -1,0 +1,57 @@
+danh sach hoc sinh
+render 
+bind event click show detail
+
+
+add new student 
+
+
+
+function StudentInfo(studentData){
+    var $container = null;
+    
+    this.renderLayout = function (){
+
+
+
+        $container.find('.show-detail-button') .click(function(){
+            $(this);
+
+
+        });   
+    }
+
+
+    function calculatorPosition($button, ){
+
+            return position;
+    }
+
+
+    function showDetailInfo(position){
+
+    }
+
+}
+
+function CollectionUtils(){
+    var LIST_STUDENT = [];
+
+
+    this.addItem = function (){
+
+    }
+
+
+    this.renderLayout = function (){
+        for(var i = 0; i < LIST_STUDENT.length; i++){
+            var student = new StudentInfo(LIST_STUDENT[i]);
+
+            student.renderLayout();
+            
+        }
+
+    }
+
+
+}
