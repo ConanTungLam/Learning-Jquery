@@ -42,21 +42,24 @@ $(document).ready(function () {
         //$('body').addClass('enable')
     }
 
+    // Vị trí hiển thị của pop-up
     function popUpPosition(element){
-        console.log($(element).children('.pop-up-infor').offset().left);
         //overlap góc dưới bên phải & dòng dưới cùng & dòng trên cùng góc phải
         if(($(element).children('.pop-up-infor').offset().top + $('.pop-up-infor').outerHeight() > $('.show-stu').offset().top + $('.show-stu').outerHeight() 
         && $(element).closest('.infor-stu').offset().left > $('.pop-up-infor').outerWidth()) || 
         $(element).children('.pop-up-infor').offset().left + $('.pop-up-infor').outerWidth() > $('.show-stu').offset().left + $('.show-stu').outerWidth() 
         && $(element).closest('.infor-stu').offset().left > $('.pop-up-infor').outerWidth()){
-            $(element).children('.pop-up-infor').css({"top": -$(element).children('.pop-up-infor').outerHeight(true) + 25 + "px", "left": -$(element).children('.pop-up-infor').outerWidth(true) - 35 + "px" });
-            $('.arrow').removeClass().addClass('arrow bottom-right')
+            $(element).children('.pop-up-infor').css({"top": -$(element).children('.pop-up-infor').outerHeight(true) + 35 + "px", "left": -$(element).children('.pop-up-infor').outerWidth(true) + 20 + "px" });
+            $(element).children('.pop-up-infor').children('.arrow').removeClass().addClass('arrow bottom-right')
         }
         //overlap dòng dưới bên trái
         else if($(element).children('.pop-up-infor').offset().top + $('.pop-up-infor').outerHeight() > $('.show-stu').offset().top + $('.show-stu').outerHeight() 
         && $(element).closest('.infor-stu').offset().left < $('.pop-up-infor').outerWidth()){
-            $(element).children('.pop-up-infor').css({"top": -$(element).children('.pop-up-infor').outerHeight(true) + 25 + "px", "right": -$(element).children('.pop-up-infor').outerWidth(true) - 35 + "px" });
-            $('.arrow').removeClass().addClass('arrow bottom-left')
+            $(element).children('.pop-up-infor').css({"top": -$(element).children('.pop-up-infor').outerHeight(true) + 35 + "px", "right": -$(element).children('.pop-up-infor').outerWidth(true) + 20 + "px" });
+            $(element).children('.pop-up-infor').children('.arrow').removeClass().addClass('arrow bottom-left')
+        }
+        else{
+            $(element).children('.pop-up-infor').children('.arrow').removeClass().addClass('arrow top-left')
         }
     }
 
