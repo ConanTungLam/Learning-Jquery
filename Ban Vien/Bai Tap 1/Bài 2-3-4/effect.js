@@ -415,7 +415,6 @@ $(document).ready(function () {
     renderStudentList(studentList);
 
     // save function
-
     function saveStudent(id){
         var index = -1;
         for (var i = 0; i < studentList.length; i++) {
@@ -450,15 +449,23 @@ console.log(index);
     }
 
     // cancel function
-
     function cancelSaving(){
         $('.add-stu-view').removeClass("active");
         $('body').removeClass('enable');
         $('#id').html('')
     }
 
-    // thêm học sinh
+    // reset form
+    function resetFormAfterSave(){
+        $('#id').text();
+        $('#name').val() = '';
+        $('#birthday').val() = '';
+        $('#phone').val() = '';
+        $('#email').val() = ''
+    }
 
+
+    // thêm học sinh
      $('.add-stu').click(function (e) {
          $('#id').append(studentList.length + 1);
          $('.add-stu-view').addClass("active");
