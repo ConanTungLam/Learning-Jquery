@@ -65,6 +65,7 @@
     display: flex;
     padding: 10px;
     border-bottom: solid 1px;
+    position: relative;
 }
 
 .avatar-stu {
@@ -89,7 +90,6 @@
 }
 
 body {
-    padding-top: 100px;
     margin: 0 auto;
     font-size:  13px;
 }
@@ -105,7 +105,7 @@ body {
 }
 
 .enable .fake-body{
-    z-index: 2;
+    z-index: 4;
     opacity: 0.7;
 }
 
@@ -115,8 +115,10 @@ body {
     border: solid 1px;
     font-family: tahoma;
     padding: 23px;
+    margin-top: 100px;
     display: inline-block;
     overflow: hidden;
+    position: relative;
 }
 .arrow.top-left{
     width: 0;
@@ -162,4 +164,65 @@ body {
     right: -13px;
     bottom: 10px;
     transform: rotate(180deg);
+}
+.edit-stu, .delete-stu{
+    position: absolute;
+    font-size: 150%;
+    top: 3px;
+    cursor: pointer;
+    padding: 0px 5px;
+    border-radius: 10px;
+} 
+
+.edit-stu{
+    right: 40px;
+}
+
+.delete-stu{
+    right: 10px;
+}
+
+.edit-stu:hover, .delete-stu:hover{
+    background: darkcyan;
+}
+
+.add-stu{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    padding: 5px;
+    border: solid 1px;
+    cursor: pointer;
+    background: whitesmoke
+}
+
+.add-stu-view {
+    width: 300px;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.3);
+    z-index: -1;
+    background: white;
+    padding: 10px;
+    border: solid 1px;
+    border-radius: 10px;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.add-stu-view.active{
+    opacity: 1;
+    z-index: 5;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.save, .cancel{
+    width: 135px;
+    padding: 5px;
+    display: inline-block;
+    text-align: center;
+    border: solid 1px;
+    cursor: pointer;
 }
