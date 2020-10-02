@@ -1,32 +1,28 @@
 function StudentGroup() {
     var EDIT_MODAL = null;
+    var studentList;
 
     // private properties
-
-
+    var me = this;
 
     this.renderLayout = function (listStudentInfo) {
+        studentList = listStudentInfo;
         var $container = $('<div class="student-group-container"></div>');
 
         for (var i = 0; i < listStudentInfo.length; i++) {
             _generateStudentInfo($container, listStudentInfo[i]);
         }
-
         return $container;
+        
     };
 
     // Tuong tu cái trên kia, ở đây quyết định xem mình sẽ cần gì và trả lại gì, input là student data, output là 1 Component (StudentInfoComponent).
     // tạo tiếp class StudentInfo
     function _generateStudentInfo($container, studentData) {
-        var studentInfo = new StudentInfo(studentData);
-
-
+        var studentInfo = new StudentInfo(studentData, me);
         // goi tiep ham generate de student info tao ra modal cua rieng no, sau do append vao container
         var studentModal = studentInfo.renderLayout();
         $container.append(studentModal);
-
-
-
         // new ko muon nhu vay thi ta su dung nhu sau:
         // studentInfo.renderAndAppendLayout($container);
     }
@@ -74,6 +70,60 @@ function StudentGroup() {
     }
 
 
+    function showConfirmModal (params){
+        var confirmModal = $('<div class="confirm-del"><h3 class="text-confirm">' + params.title +'</h3><button class="accept" value="Yes">Có</button><button class="reject" value="No">Không</button></div>');
+        $('body').append(confirmModal);
+
+        confirmModal.find('button.accept').click(function(){
+            
+            params.onConfirmFunc();
+            confirmModal.remove();
+        });
+
+        confirmModal.find('button.reject').click(function(){
+            
+            params.onCancelFunc();
+            confirmModal.remove();
+        });    
+
+    }
+
+    this.removeStudentByIndex = function (studentId, onConfirmCallBackFunc, onCancelCallBackFunc){
+        showConfirmModal({
+            title : 'Bạn có muốn xóa học sinh này?',
+            onConfirmFunc : function (){
+                _deleteStudent();
+                onConfirmCallBackFunc();
+
+            }, 
+            onCancelFunc: function (){
+                onCancelCallBackFunc();
+            }
+        })
+
+        function _deleteStudent(){
+            var index;
+            for(var i = 0; i < studentList.length; i++) {
+                if(studentList[i].id == studentId){
+                    index= i;
+                    break;
+                }
+            }
+            while( index < studentList.length){
+                studentList[index].id = studentList[index].id - 1;
+                studentList[index] = studentList[index + 1];
+                index = index + 1;
+             }
+             studentList.length = studentList.length - 1;
+             console.log(studentList)
+        }
+        
+         
+    }
+
+
+
+
 }
 
 const STUDENT_GROUP_UTILS = new StudentGroup();
@@ -81,7 +131,7 @@ const STUDENT_GROUP_UTILS = new StudentGroup();
 
 
 // Tao 1 student Info Class voi cac constructor la student data.
-function StudentInfo(studentData) {
+function StudentInfo(studentData, studentGroup) {
     var id = studentData.id;
     var name = studentData.name;
     var avatar = studentData.avatar;
@@ -117,10 +167,24 @@ function StudentInfo(studentData) {
     this.showStudentDetail = function () {
 
         if (COMPONENT_DETAIL == null) {
-            $('.pop-up-infor').hide();
+            // này có thể dùng .hide() cũng được nhưng dùng css để có hiệu ứng.
+            closePopUp()
             COMPONENT_DETAIL = _generateComponentDetail();
+            COMPONENT_DETAIL.addClass("active")
             showUserDetailModal()
         }
+        else if(COMPONENT_DETAIL != null && COMPONENT_DETAIL.hasClass("active") == true){
+            closePopUp()
+        }
+        else{
+            closePopUp();
+            COMPONENT_DETAIL.addClass("active");
+            COMPONENT_DETAIL.css({ "opacity": "1", "transform": "scale(1)", "zIndex": "2" });
+        }
+
+        COMPONENT_DETAIL.find(".close-pop-up").click(function(e){
+            closePopUp();
+        })
 
         function showUserDetailModal() {
             // COMPONENT_DETAIL.addClass("active");
@@ -144,6 +208,11 @@ function StudentInfo(studentData) {
             else {
                 COMPONENT_DETAIL.find('.arrow').removeClass().addClass('arrow top-left')
             }
+        }
+
+        function closePopUp(){
+            $('.pop-up-infor').css({ "opacity": "0", "transform": "scale(0.3)", "zIndex": "-1" });
+            $('.pop-up-infor').removeClass("active");
         }
 
     };
@@ -186,46 +255,44 @@ function StudentInfo(studentData) {
         currentComp.remove();
     };
 
+    this.deleteStudent = function(){
+        studentGroup.removeStudentByIndex(id, function(){
+            console.log("CONFIRM");
+            COMPONENT.remove();
+        }, function(){
+            console.log("CANCEL");
+        });
+    
+    }
 
-    // add your code here
     function _generateLayout() {
         var studentBlockEl = $('<div class="infor-stu" id="' + id + '"><div class="name-stu"> ' + name + ' <span class="edit-stu">&#9998;</span><span class="delete-stu">&#10008;</span></div> <div class="avatar-stu">avatar</div> <div class="more-info">Ngày sinh: ' + birthday + '<br>Số ĐT: ' + phone + '<br> Email: ' + email + ' </div> <div class="show-detail-stu">Show Delail</div></div>');
         return studentBlockEl;
     }
 
     function _bindEvent() {
-        COMPONENT.find(".show-detail-stu").click(function () {
+        COMPONENT.find('.show-detail-stu').click(function () {
             me.showStudentDetail();
         });
 
-        COMPONENT.find(".edit-button").click(function () {
-            editStudent();
+        COMPONENT.find('.edit-button').click(function () {
+            me.editStudent();
         });
+
+        COMPONENT.find('.delete-stu').click(function(){
+            me.deleteStudent();
+        })
     }
 
-
-    // add your code here
     function _generateComponentDetail() {
 
         var modal = $('<div class="pop-up-infor" id=' + id + '><span class="arrow"></span><div class="pop-up-name">' + name + '<div class="close-pop-up">x</div></div><div class="pop-up-person-infor"> Địa chỉ: ' + address + '<br/> Ngày sinh: ' + birthday + '<br/> Số ĐT: ' + phone + '<br/> Email: ' + email + '<br/></div><div class="pop-up-score"> Điểm môn 1: ' + score[0] + '<br/>  Điểm môn 2: ' + score[1] + '<br/> Điểm môn 3: ' + score[2] + '<br/> Điểm môn 4: ' + score[3] + '<br/> Điểm môn 5: ' + score[4] + '<br/> Điểm môn 6: ' + score[5] + '<br/> Điểm môn 7: ' + score[6] + '<br/></div><div class="pop-up-rank"> Điểm trung bình: <br> Xếp loại: Giỏi/Khá/Trung Bình</div></div>');
         COMPONENT.find('.show-detail-stu').append(modal);
+        modal.click(function(e){
+            e.stopPropagation();
+        })
         return modal;
-
-        // return block content
     }
-
-    function closePopUp(OneElementClose) {
-        $(OneElementClose).removeClass('active');
-        $(OneElementClose).children('.pop-up-infor').css({ "opacity": "0", "transform": "scale(0.3)", "zIndex": "-1" });
-    }
-
-    function openPopUp(OneElementOpen) {
-        $('.show-detail-stu').removeClass('active').children('.pop-up-infor').css({ "opacity": "0", "transform": "scale(0.3)", "zIndex": "-1" });
-        $(OneElementOpen).addClass('active');
-        $(OneElementOpen).children('.pop-up-infor').css({ "opacity": "1", "transform": "scale(1)", "zIndex": "3" });
-    }
-
-
 }
 
 $(document).ready(function () {
