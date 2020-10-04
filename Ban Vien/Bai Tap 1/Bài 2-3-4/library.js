@@ -121,6 +121,44 @@ function StudentGroup() {
          
     }
 
+    function _renderAddPopUp(){
+        var addModal = $(' <div class="add-stu-view"> <table cellspacing="10"> <tr> <td>ID: </td> <td><span id="id">' + (studentList[studentList.length - 1].id + 1) +'</span></td> </tr> <tr> <td>Tên: </td> <td><input id="name" type="text"></td> </tr> <tr> <td>Ngày sinh: </td> <td><input id="birthday" type="date"></td> </tr> <tr> <td>Số ĐT: </td> <td><input id="phone" type="text"></td> </tr> <tr> <td>Địa chỉ: </td> <td><input id="address" type="text"></td> </tr> <tr> <td>Email: </td> <td><input id="email" type="email"></td> </tr> <tr> <td>Điểm: </td> <td><input id="score" type="text" placeholder="Dùng dấy phảy ngăn cách." ></td> </tr> </table> <button class="add">Lưu</button>  <button class="reset">Đặt Lại</button> <button class="cancel">Hủy Bỏ</button> </div>');
+        $('body').append(addModal);
+        addModal.css({ "opacity": "1", "transform": "scale(1)", "zIndex": "3" });
+
+        addModal.find('button.add').click(function(){
+            currentStudent = new StudentInfo();
+            currentStudent.id = (studentList[studentList.length - 1].id + 1);
+            console.log(currentStudent.id)
+        });
+
+        addModal.find('button.cancel').click(function(){
+            
+        });    
+
+        addModal.find('button.reset').click(function(){
+            resetFormAfterSave()
+            alert($('#name').val())
+        }); 
+
+
+    }
+
+    function resetFormAfterSave(){
+        $('#id').text();
+        // $('#name').val() = '';
+        // $('#birthday').val() = '';
+        // $('#phone').val() = '';
+        // $('#email').val() = ''
+        // $('#address').val() = '';
+        // $('#score').val() = ''
+    }
+
+    this.addNewStudent = function (){
+        _renderAddPopUp();
+    }
+
+
 
 
 
@@ -399,5 +437,9 @@ $(document).ready(function () {
 
     var container = STUDENT_GROUP_UTILS.renderLayout(listStudent);
     $('.show-stu').append(container);
+    
+    $('.add-stu').click(function(){
+        STUDENT_GROUP_UTILS.addNewStudent()
+    })
 
 });

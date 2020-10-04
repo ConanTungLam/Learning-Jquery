@@ -219,13 +219,14 @@ body {
     transform: translate(-50%, -50%) scale(1);
 }
 
-.save, .cancel{
-    width: 135px;
+.add, .cancel, .reset{
+    width: 25%;
     padding: 5px;
     display: inline-block;
     text-align: center;
     border: solid 1px;
     cursor: pointer;
+    margin: 0px 10px;
 }
 .confirm-del{
     width: 300px;
